@@ -1,0 +1,19 @@
+{
+  "name": "technical-task-2",
+  "version": "1.0.0",
+  "author": "CancerAidDev",
+  "license": "MIT",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "server": "node ./index.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.1",
+    "knex": "^2.1.0",
+    "sqlite3": "^5.0.8"
+  },
+  "devDependencies": {},
+  "main": "index.js"
+}

@@ -1,0 +1,6 @@
+node_modules
+elm-stuff
+.parcel-cache
+./example/node_modules
+dist
+.idea/
