@@ -4,3 +4,4 @@ elm-stuff
 ./example/node_modules
 dist
 .idea/
+dist-newstyle
