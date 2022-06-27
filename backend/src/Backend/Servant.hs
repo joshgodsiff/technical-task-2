@@ -9,7 +9,7 @@
 module Backend.Servant where
 
 import Servant
-import Database.SQLite.Simple
+import Database.SQLite.Simple ( open, queryNamed, query_ )
 import Control.Monad.IO.Class (liftIO, MonadIO)
 import Backend.Types
 import Backend.Sql
@@ -28,7 +28,7 @@ elementsHandler orderBy_ orderDir_ currentPage_ perPage_ = do
   let UrlParams orderBy orderDir currentPage perPage = resolveParams orderBy_ orderDir_ currentPage_ perPage_
   conn <- liftIO $ open "../db/elements.db"
   -- In a high-traffic scenario, we might want to do these calls concurrently,
-  -- or roll them into a single transaction query so we only make one call to the DB.
+  -- or roll them into a single query so we only make one call to the DB.
   (cs :: [CountResult])  <- liftIO $ query_ conn countQuery
   (results :: [Element]) <- liftIO $ queryNamed conn (elementsQuery orderBy orderDir) (elementsQueryParams currentPage perPage)
   let 

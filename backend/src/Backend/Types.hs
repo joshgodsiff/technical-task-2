@@ -6,11 +6,15 @@
 
 module Backend.Types where
 
-import Data.Text
+import Data.Text ( Text )
 import GHC.Generics (Generic)
 import Data.Aeson
-import Database.SQLite.Simple
-import Web.HttpApiData
+    ( defaultOptions,
+      genericToJSON,
+      Options(fieldLabelModifier),
+      ToJSON(toJSON) )
+import Database.SQLite.Simple ( FromRow )
+import Web.HttpApiData ( FromHttpApiData(parseQueryParam) )
 
 elementEncodingOptions :: Options
 elementEncodingOptions = defaultOptions { fieldLabelModifier = renameKeywords }
@@ -39,6 +43,7 @@ data ElementsResult = ElementsResult
   { total :: CountResult
   -- These are returned by the example JS code, but they're not used by the frontend, 
   -- so I don't see a particular need to support them for this project.
+  -- Supporting them is not particularly interesting code-wise, it's just a lot of wiring.
   -- , perPage :: Int
   -- , offset :: Int
   -- , to :: Int

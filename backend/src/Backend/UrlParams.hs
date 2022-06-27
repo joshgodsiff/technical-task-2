@@ -3,25 +3,31 @@
 module Backend.UrlParams where
 
 import Backend.Types hiding (ElementsResult (..))
-import Data.Maybe
+import Data.Maybe ( fromMaybe )
 
 data UrlParams = UrlParams OrderBy OrderDir CurrentPage PerPage
   deriving (Show, Eq)
 
-class Resolve a where
-  resolve :: Maybe a -> a
+-- There are probably much more robust ways to do this using some sort of parsing library,
+-- if you actually need to handle a lot of query strings, or some complicated logic.
+-- This does have the benefit of being very lightweight, though.
+class Default a where
+  def :: a
 
-instance Resolve OrderBy where
-  resolve = fromMaybe AtomicNumber
+resolve :: Default a => Maybe a -> a
+resolve = fromMaybe def
 
-instance Resolve OrderDir where
-  resolve = fromMaybe Asc
+instance Default OrderBy where
+  def = AtomicNumber
 
-instance Resolve CurrentPage where
-  resolve = fromMaybe . CurrentPage $ 1
+instance Default OrderDir where
+  def = Asc
 
-instance Resolve PerPage where
-  resolve = fromMaybe . PerPage $ 10
+instance Default CurrentPage where
+  def = CurrentPage 1
+
+instance Default PerPage where
+  def = PerPage 10
 
 resolveParams :: Maybe OrderBy -> Maybe OrderDir -> Maybe CurrentPage -> Maybe PerPage -> UrlParams
 resolveParams a b c d = UrlParams (resolve a) (resolve b) (resolve c) (resolve d)
