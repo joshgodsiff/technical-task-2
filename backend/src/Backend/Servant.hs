@@ -10,7 +10,7 @@ module Backend.Servant where
 
 import Servant
 import Database.SQLite.Simple ( open, queryNamed, query_ )
-import Control.Monad.IO.Class (liftIO, MonadIO)
+import Control.Monad.IO.Class (liftIO)
 import Backend.Types
 import Backend.Sql
 import Backend.UrlParams
@@ -32,11 +32,11 @@ elementsHandler orderBy_ orderDir_ currentPage_ perPage_ = do
   (cs :: [CountResult])  <- liftIO $ query_ conn countQuery
   (results :: [Element]) <- liftIO $ queryNamed conn (elementsQuery orderBy orderDir) (elementsQueryParams currentPage perPage)
   let 
-    total = case cs of
+    total_ = case cs of
       [c] -> c
       _ -> CountResult 0
   pure $ ElementsResult 
-        { total = total
+        { total = total_
         , data_ = results
         }
 

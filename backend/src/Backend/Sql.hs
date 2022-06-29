@@ -3,7 +3,6 @@
 
 module Backend.Sql where
 
-import Backend.UrlParams
 import Backend.Types hiding (ElementsResult (..))
 import Database.SQLite.Simple ( NamedParam(..), Query )
 
