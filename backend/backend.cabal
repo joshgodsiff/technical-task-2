@@ -33,15 +33,15 @@ executable backend
 
     -- LANGUAGE extensions used by modules in this package.
     -- other-extensions:
-    build-depends:    base ^>=4.14.3.0
-                    , servant-server
-                    , servant
-                    , wai
-                    , text
-                    , sqlite-simple
-                    , http-api-data
-                    , warp
-                    , aeson
-                    , wai-cors
+    build-depends:    base            ^>= 4.14.3.0
+                    , servant-server  ^>= 0.19
+                    , servant         ^>= 0.19
+                    , wai             ^>= 3.2.3
+                    , text            ^>= 2.0
+                    , sqlite-simple   ^>= 0.4.18.1
+                    , http-api-data   ^>= 0.4.1
+                    , warp            ^>= 3.3.21
+                    , aeson           ^>= 2.1.0.0
+                    , wai-cors        ^>= 0.2.7
     hs-source-dirs:   src
     default-language: Haskell2010
